@@ -35,6 +35,7 @@ jobs:
       - name: Tag branch
         if: endswith(github.ref, 'main')
         uses: mydea/action-tag-date-version@v20
+        id: version-tag
 
       - name: Release HTML
         uses: ncipollo/release-action@v1
@@ -42,3 +43,4 @@ jobs:
         with:
           artifacts: PyTexasSlides.*
           token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.version-tag.outputs.version }}
