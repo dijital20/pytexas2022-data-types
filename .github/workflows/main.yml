@@ -14,16 +14,16 @@ jobs:
         uses: actions/setup-node@v2
       
       - name: Export HTML
-        run: npm exec @marp-team/marp-cli@latest Notes.md -o _export/Notes.html
+        run: npm exec @marp-team/marp-cli@latest Notes.md -o export/Notes.html
 
       - name: Export PDF
-        run: npm exec @marp-team/marp-cli@latest Notes.md --pdf -o _export/Notes.pdf
+        run: npm exec @marp-team/marp-cli@latest Notes.md -o export/Notes.pdf
       
       - name: Archive Exports
         uses: actions/upload-artifact@v2
         with:
           name: Notes Exports
-          path: _export/*
+          path: export/
           retention-days: 7
       
       - name: Tag branch
@@ -34,5 +34,5 @@ jobs:
         uses: ncipollo/release-action@v1
         if: endsWith(github.ref, 'main')
         with:
-          artifacts: _export/*
+          artifacts: export/*
           token: ${{ secrets.GITHUB_TOKEN }}
