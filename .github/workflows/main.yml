@@ -13,11 +13,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
       
-      - name: Run marp on Notes.md
-        run: npm exec @marp-team/marp-cli@latest Notes.md
+      - name: Export HTML
+        run: npm exec @marp-team/marp-cli@latest Notes.md -o _export/Notes.html
+
+      - name: Export PDF
+        run: npm exec @marp-team/marp-cli@latest Notes.md --pdf -o _export/Notes.pdf
       
-      - name: Archive HTML
+      - name: Archive Exports
         uses: actions/upload-artifact@v2
         with:
-          name: Notes HTML slides
-          path: Notes.html
+          name: Notes Exports
+          path: _export/*
+          retention-days: 7
+      
+      - name: Tag branch
+        if: endswith(github.ref, 'main')
+        uses: mydea/action-tag-date-version@v20
+
+      - name: Release HTML
+        uses: ncipollo/release-action@v1
+        if: endsWith(github.ref, 'main')
+        with:
+          artifacts: _export/*
+          token: ${{ secrets.GITHUB_TOKEN }}
