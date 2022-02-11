@@ -1,28 +1,56 @@
+---
+marp: true
+footer: #PyTexas 2022
+paginate: true
+---
+
 # Choosing the Right Data Type
+
+**Josh Schneider**
+[github/dijital20](https://github.com/dijital20)
+
+<!-- _class: invert -->
+
+---
+
+## What we're not covering
+
+"Elemental" data types (`int`, `str`, `float`, `bool`)
 
 ---
 
 ## Basic Collections - `list`, `set`, `tuple`
 
-|Name|Mutable|Unique|Ordered|
-|---|---|---|---|
-|`list`|Y|N|Y|
-|`set`|Y|Y|N|
-|`tuple`|N|N|Y|
-
-`list` is a good go-to collection, when order matters and you don't know how many items you have or position has little meaning.
-
-`set` is good if you need for all elements to be unique (they all must be hashable) and order doesn't matter.
-
-`tuple` is good for "packaging" values (passing around more than one value) or places where you don't want the collection to be editable once created.
+|Name       |Mutable    |Unique |Ordered|
+|---        |---        |---    |---    |
+|`list`     |Y          |N      |Y      |
+|`set`      |Y          |Y      |N      |
+|`tuple`    |N          |N      |Y      |
 
 ---
 
-## `deque` and `namedtuple`
+## Basic Collections (cont.)
 
-`deque` is better than a list if you need to use it like a stack (add items and/or remove items from one end or the other, but don't need to search through the middle) as they are optimized for this.
+Use a `set` if all elements will be hashable, you need for all elements to be unique, and order doesn't matter.
 
-`namedtuple` is good if you need the indexability and immutability of a tuple of a fixed size, but also need to put labels on the data. These are good to use in place of tuples if you are "packaging" values to return.
+Use a `tuple` when you are "packaging" values (passing around more than one value) or in places where you don't want the collection to be editable once created.
+
+Use a `list` when order matters and you don't know how many items you have.
+
+---
+
+## `deque` - Popping and Pushing
+
+Use a `deque` in place of a `list`:
+
+* When you want to limit the total number of elements (`maxlen` is wonderful).
+* When you want to use it as a stack, pushing items in one and and popping out of the other (they are marginally faster).
+
+---
+
+## `namedtuple` - Name your data
+
+Consider using a `namedtuple`  anywhere you'd use a `tuple` for packaging values to put names on the data.
 
 ```python
 from collections import namedtuple
@@ -33,12 +61,11 @@ from collections import namedtuple
 
 # Named Tuple - much easier to read
 >> TaskTotals = namedtuple('TaskTotals', 'todo,done,total')
->> TaskTotals(27,5,32)
+>> totals = TaskTotals(27,5,32)
+>> totals
 TaskTotals(todo=27, done=5, total=32)
->> TaskTotals(27,5,32).todo
-27
->> TaskTotals(27,5,32)[0]
-27
+>> totals.todo, totals[0]
+27, 27
 ```
 
 ---
