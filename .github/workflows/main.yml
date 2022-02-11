@@ -12,6 +12,9 @@ jobs:
       
       - name: Setup Node.js
         uses: actions/setup-node@v2
+
+      - name: Make exports folder
+        run: mkdir exports
       
       - name: Export HTML
         run: npm exec @marp-team/marp-cli@latest Notes.md -o export/Notes.html
