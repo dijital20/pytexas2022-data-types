@@ -2,6 +2,12 @@
 marp: true
 footer: #PyTexas 2022 - Choosing the Right Data Type
 paginate: true
+style: |
+    table {
+        margin-top: 1em;
+        align: center;
+    }
+    
 ---
 
 # Choosing the Right Data Type
@@ -9,9 +15,11 @@ paginate: true
 **Josh Schneider**
 [github/dijital20](https://github.com/dijital20)
 
-<!-- _class: invert -->
-<!-- _footer: "" -->
-<!-- _paginate: false -->
+<!-- 
+_class: invert 
+_footer: ""
+_paginate: false
+-->
 
 ---
 
@@ -30,16 +38,11 @@ paginate: true
 
 ## `list`, `set`, `tuple` - 3 very different bags
 
-
-<center style="margin-top: 40px;">
-
 |Name       |Mutable    |Unique |Ordered|Useful methods                                 |
 |---        |:-:        |:-:    |:-:    |---                                            |
 |`list`     |Y          |N      |Y      |`push`, `pop`, `insert`, `append`, `extend`    |
 |`set`      |Y          |Y      |N      |`union`, `intersection`, `difference`, `add`   |
 |`tuple`    |N          |N      |Y      |*tumbleweeds...*                               |
-
-</center>
 
 <!-- 
     Speaker Notes:
