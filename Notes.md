@@ -22,6 +22,10 @@ paginate: true
   * *"Why does everything have to be a list/dict?"*
 * We're not going to cover "Elemental" data types (`int`, `str`, `float`, `bool`, `None`).
 
+<!-- 
+    Speaker Notes:
+ -->
+
 ---
 
 ## `list`, `set`, `tuple` - 3 very different bags
@@ -37,6 +41,10 @@ paginate: true
 
 </center>
 
+<!-- 
+    Speaker Notes:
+ -->
+
 ---
 
 ## `list`, `set`, `tuple` (cont.)
@@ -47,6 +55,10 @@ Use a `tuple` when you are "packaging" values (passing around more than one valu
 
 Use a `list` when order matters and you don't know how many items you have.
 
+<!-- 
+    Speaker Notes:
+ -->
+
 ---
 
 ## `deque` - Popping and Locking and Pushing
@@ -55,6 +67,10 @@ Use a `deque` in place of a `list`:
 
 - When you want to limit the total number of elements (`maxlen` is wonderful).
 - When you want to use it as a stack, pushing items in one and and popping out of the other (they are marginally faster).
+
+<!-- 
+    Speaker Notes:
+ -->
 
 ---
 
@@ -78,6 +94,10 @@ TaskTotals(todo=27, done=5, total=32)
 27, 27
 ```
 
+<!-- 
+    Speaker Notes:
+ -->
+
 ---
 
 ## Mapping - `dict`
@@ -98,6 +118,10 @@ Use a `dict` when...
 >> 'Worf' in enterprise_role_map
 False
 ```
+
+<!-- 
+    Speaker Notes:
+ -->
 
 ---
 
@@ -123,6 +147,10 @@ Changing warp factor from 0 to 6
 Oh no, not installed until Tuesday
 ```
 
+<!-- 
+    Speaker Notes:
+ -->
+
 ---
 
 ## `dataclass` - A more refined class for representing data
@@ -143,3 +171,18 @@ CrewPerson(name='Picard', role='Captain', service_length=35)
 >> p.name
 'Picard'
 ```
+
+<!-- 
+    Speaker Notes:
+ -->
+
+---
+
+## Thanks for coming, and good luck!
+
+[Clone these slides](https://github.com/dijital20/pytexas2022-data-types) I made with [Marp](https://marpit.marp.app/)
+
+Questions, comments, remarks, jokes, limericks and dad jokes
+[GitHub: @Dijital20](https://github.com/dijital20)
+
+<!-- _class: invert -->
