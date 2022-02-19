@@ -34,7 +34,7 @@ _paginate: false
 
 * *"When should I use a list vs a tuple?"*
 * *"Why does everything have to be a list/dict?"*
-* The data structures we use send signals to users of our code on how the data matters and should be used.
+* The data structures we use send signals to the users of our code on how the data should be used.
 * We're not going to cover "Elemental" data types (`int`, `str`, `float`, `bool`, `None`).
 
 <!-- 
@@ -92,20 +92,34 @@ _paginate: false
 ## `list`, `set`, `tuple` - 3 very different bags
 
 |Name       |Mutable    |Unique     |Ordered    |Useful methods                                 |
-|---        |:-:        |:-:        |:-:        |---                                            |
+|:-:        |:-:        |:-:        |:-:        |:-:                                            |
 |`list`     |&#10004;   |&#10060;   |&#10004;   |`push`, `pop`, `insert`, `append`, `extend`    |
 |`set`      |&#10004;   |&#10004;   |&#10060;   |`union`, `intersection`, `difference`, `add`   |
 |`tuple`    |&#10060;   |&#10060;   |&#10004;   |*tumbleweeds...*                               |
 
 <!-- 
     Speaker Notes:
+    We usually talk about lists, sets, and tuples collectively (see what I did there?); but they are very different.
+
+    Lists and sets are your standard mutable mapping. They are good at holding an indeterminate amount of items, when you 
+    need to access the items from more than one place. Tuples, on the other hand, are locked when defined (something fun 
+    happens when you put a mutable type inside an immutable type... remember that Python is "by reference") and aren't 
+    extendable... which makes them good for packaging, but bad for being a drop zone for new members.
+
+    Note the inverse relationship between requiring unique data values and ordered. 
+    - Sets are containers where value (uniqueness) matters, not position. Because of this, all of your elements have to be 
+      hashable (immutable).
+    - Lists are containers where position matters more than the value itself. You can put any kind of data into a list,
+      you can mix and match... the value matters less than its position within the list.
+    - Tuples are like lists, except that they can't be changed or extended without destroying the old one and making the 
+      new one.
  -->
 
 ---
 
 ## `list`, `set`, `tuple` (cont.)
 
-Use a `set` if all elements will be hashable, you need for all elements to be unique, and order doesn't matter.
+Use a `set` if all elements will be hashable (immutable), you need for all elements to be unique, and order doesn't matter.
 
 Use a `tuple` when you are "packaging" values (passing around more than one value) or in places where you don't want the collection to be modified after created.
 
@@ -113,6 +127,7 @@ Use a `list` when order matters and you don't know how many items you have.
 
 <!-- 
     Speaker Notes:
+    (I think the slide content speaks for itself here.)
  -->
 
 ---
@@ -132,26 +147,34 @@ Use a `deque` in place of a `list`:
 
 ## `namedtuple` - Name your data
 
-Consider using a `namedtuple`  anywhere you'd use a `tuple` for packaging values to put names on the data.
+Consider using a `namedtuple`  anywhere you'd use a `tuple` for packaging values, so that you can put names on the data inside.
 
 ```python
-from collections import namedtuple
+>> ('Saurian Brandy', 5, 32)
+('Saurian Brandy', 5, 32)  # What are you?
+```
 
-# Traditional Tuple - What do these numbers mean?
->> (27, 5, 32)
-(27, 5, 32)
-
-# Named Tuple - much easier to read
->> TaskTotals = namedtuple('TaskTotals', 'todo,done,total')
->> totals = TaskTotals(27,5,32)
+```python
+>> from collections import namedtuple
+>> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
+>> totals = InventoryItem('Saurian Brandy',5,32)
 >> totals
-TaskTotals(todo=27, done=5, total=32)
->> totals.todo, totals[0]
-27, 27
+InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
+>> totals.todo, totals[1]
+5, 5
 ```
 
 <!-- 
     Speaker Notes:
+    Since tuples can store any kind of data inside just like list, a problem arises in understanding what each element 
+    signifies. This can make it harder for your users, or force them to rely on docstrings (please, please always do 
+    these, and do them well) and documentation.
+
+    Namedtuples are awesome in that they give you all of the same functionality as a tuple, but with the addition names, 
+    which are printed when the value is printed, and you can use to access the data rather than index.
+
+    Namedtuples cannot easily contain instance methods and properties... a class is better for those, but if you don't 
+    need them, then a namedtuple is a lightweight, understandable alternative to a tuple.
  -->
 
 ---
@@ -177,6 +200,19 @@ False
 
 <!-- 
     Speaker Notes:
+    Dictionaries are awesome and powerful. They are flexible mapping that allow you to associate a piece of immutable 
+    data with some other piece of data (which can be mutable or immutable). The value of the key is important because it
+    is expected to be unique and significant for location. The value can be anything.
+
+    Dictionaries are so useful that they are used all over the Python landscapes. Instances of objects created from classes
+    contain a dictionary inside to track the instance state, namespaces like globals(), locals(), a loaded module, etc all 
+    expose dictionaries that you can use to access and iterate values.
+
+    Unfortunately, in my opinion, dictionaries get a little overused, and can be daunting when they are nested to multiple
+    layers.
+
+    I prefer to use dictionaries in places where the structure (the collection of keys) is more fluid. For places where a
+    dictionary should contain specific keys, a namedtuple, class, or dataclass-decorated class would be far more useful.
  -->
 
 ---
