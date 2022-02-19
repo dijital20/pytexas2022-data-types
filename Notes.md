@@ -137,10 +137,11 @@ Use a `list` when order matters and you don't know how many items you have.
 Use a `deque` in place of a `list`:
 
 - When you want to limit the total number of elements (`maxlen` is wonderful).
-- When you want to use it as a stack, pushing items in one and and popping out of the other (they are marginally faster).
+- When you want to use it as a stack, linearly processing data.
 
 <!-- 
     Speaker Notes:
+    A deque is another mutable data structure that is optimized for getting things from either end but not so much in the middle. 
  -->
 
 ---
@@ -214,6 +215,26 @@ False
     I prefer to use dictionaries in places where the structure (the collection of keys) is more fluid. For places where a
     dictionary should contain specific keys, a namedtuple, class, or dataclass-decorated class would be far more useful.
  -->
+
+---
+
+## `defaultdict` - Ensuring default data/type
+
+Use a `defaultdict` in place of a dict if your values are the same data type, to ensure a default value if a key isn't defined. This can save you a few lines of code.
+
+```python
+>> non_dd = dict()
+>> non_dd['foo'].append('bar')
+KeyError: 'foo' not defined.
+```
+
+```python
+>> from collections import defaultdict
+>> dd = defaultdict(default_factory=list)
+>> dd['foo'].append('bar')
+>> dd['foo']
+['bar']
+```
 
 ---
 
