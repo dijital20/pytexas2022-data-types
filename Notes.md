@@ -34,7 +34,7 @@ _paginate: false
 
 * *"When should I use a list vs a tuple?"*
 * *"Why does everything have to be a list/dict?"*
-* The data structures we use send signals to the users of our code on how the data should be used.
+* The data structures we choose imply how the data should be used.
 * We're not going to cover "Elemental" data types (`int`, `str`, `float`, `bool`, `None`).
 
 <!-- 
@@ -59,8 +59,8 @@ _paginate: false
 
 ## Terminology
 
-* **Immutable** types change by **moving the reference**, not changing the data.
-* **Mutable** types change by **changing the data**, not moving the reference.
+* **Immutable** types change by **moving the reference**, not changing the data (they are close-ended).
+* **Mutable** types change by **changing the data**, not moving the reference (they are open-ended).
 * **Ordered** types focus on **position** over value.
 * **Unordered** types focus on **value** over position. -->
 
@@ -183,8 +183,8 @@ InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
 ## Mapping - `dict`
 
 Use a `dict` when...
-- You need to relate some immutable value to another value.
-- Where the number and structure of the immutable values are dynamic.
+- You need to relate some unique value to some other value.
+- Where the number/type of the unique values are dynamic.
 
 ```python
 >> enterprise_role_map = {
@@ -203,17 +203,18 @@ False
     Speaker Notes:
     Dictionaries are awesome and powerful. They are flexible mapping that allow you to associate a piece of immutable 
     data with some other piece of data (which can be mutable or immutable). The value of the key is important because it
-    is expected to be unique and significant for location. The value can be anything.
+    is expected to be unique and significant for location. The associated value, on the other hand, can be anything.
 
-    Dictionaries are so useful that they are used all over the Python landscapes. Instances of objects created from classes
-    contain a dictionary inside to track the instance state, namespaces like globals(), locals(), a loaded module, etc all 
-    expose dictionaries that you can use to access and iterate values.
+    Dictionaries are so useful that they are used all over the Python landscape. Instances of objects created from 
+    classes contain a dictionary inside to track the instance state, namespaces like globals(), locals(), a loaded 
+    module, etc all expose dictionaries that you can use to access and iterate values.
 
-    Unfortunately, in my opinion, dictionaries get a little overused, and can be daunting when they are nested to multiple
-    layers.
+    Unfortunately, in my opinion, dictionaries get a little overused, and can be daunting when they are nested to 
+    multiple layers.
 
-    I prefer to use dictionaries in places where the structure (the collection of keys) is more fluid. For places where a
-    dictionary should contain specific keys, a namedtuple, class, or dataclass-decorated class would be far more useful.
+    I prefer to use dictionaries in places where the structure (the collection of keys) is more fluid. For places where 
+    a dictionary should contain specific keys, a namedtuple, class, or dataclass-decorated class would be far more 
+    useful for ensuring that deterministic state.
  -->
 
 ---
@@ -240,7 +241,7 @@ KeyError: 'foo' not defined.
 
 ## Classes
 
-Use a `class` when you want a rigid deterministic structure for holding data (fields) and actions (methods) on that data.
+Use a `class` when you want a rigid, deterministic structure for holding data (fields) and actions (methods) on that data.
 
 ```python
 >> class WarpDrive(object):
@@ -262,13 +263,23 @@ Oh no, not installed until Tuesday
 
 <!-- 
     Speaker Notes:
+    Classes are the alternative to a straight dictionary anytime you want to ensure that instances have a deterministic 
+    set of fields. You can control behavior through your implementation, and ensure the fields you expect are there.
+    You can use `vars()` to get the `dict` flavor of the instance, returning any fields defined (but not properties or 
+    methods).
+
+    While the other types we've talked about so far all hold values, a class can also define actions via its methods
+    and properties. This helps define objects that not only HOLD data, but can ACT on that data.
+
+    I prefer to go to classes anytime where the properties of the object are deterministic (I know ahead of time that,
+    say, all WarpDrive objects will have a warp factor) that I want to ensure are there for me to interact with.
  -->
 
 ---
 
 ## `dataclass` - A more refined class for representing data
 
-Use a `dataclass` when you want a rigid, deterministic structure for holding data, don't want to write the boilerplate around a class, and don't need the indexability of a `namedtuple`.
+Use a `dataclass` anywhere you would use a class, but don't want to write the boilerplate around a class (`__str__`, `__init__`, `__eq__`, etc).
 
 ```python
 >> from dataclasses import dataclass
@@ -287,6 +298,18 @@ CrewPerson(name='Picard', role='Captain', service_length=35)
 
 <!-- 
     Speaker Notes:
+    Dataclasses were added in Python 3, and are a decorator around a normal class. The class decorator uses static 
+    fields and type hints for those fields to fill in the boilerplate magic method around a new class. This frees you
+    from having to define things like `__str__`, `__repr__`, etc.
+
+    Even though the dataclass decorator uses the annotations of the class fields to create the instance fields in the 
+    object, it does not enforce those types at runtime (meaning a field defined as `foo: int` can have a `str` value).
+    The decorator itself has some useful keyword arguments (such as being able to declare the instance objects as 
+    `frozen`, which will make then functionally immutable), as does the `field` function provided for customizing field
+    rules.
+
+    If you have a number of fields in a class, and want to save yourself some work around the magic methods, dataclass
+    is a type of borrowed magic that's there for the taking!
  -->
 
 ---
