@@ -16,11 +16,17 @@ jobs:
       - name: Print directory
         run: ls -a
       
-      - name: Export HTML
+      - name: Export Slides HTML
         run: npx @marp-team/marp-cli@latest Slides.md -o PyTexasSlides.html
 
-      - name: Export PDF
+      - name: Export Slides PDF
         run: npx @marp-team/marp-cli@latest Slides.md -o PyTexasSlides.pdf
+
+      - name: Export Cheatsheet HTML
+        run: pandoc -f markdown -t html -o PyTexasCheatsheet.html Cheatsheet.md
+
+      - name: Export Cheatsheet PDF
+        run: pandoc -f markdown -t pdf -o PyTexasCheatsheet.pdf Cheatsheet.md
 
       - name: Print directory
         run: ls -a
@@ -29,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Notes Exports
-          path: PyTexasSlides.*
+          path: PyTexas*.*
           retention-days: 7
       
       - name: Tag branch (main only)
@@ -41,6 +47,6 @@ jobs:
         uses: ncipollo/release-action@v1
         if: endsWith(github.ref, 'main')
         with:
-          artifacts: PyTexasSlides.*
+          artifacts: PyTexas*.*
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.version-tag.outputs.version }}
