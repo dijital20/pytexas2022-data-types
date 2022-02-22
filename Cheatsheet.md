@@ -1,7 +1,6 @@
 ---
 standalone: true
 geometry: "margin=2cm"
-highlight-style: pygments
 ---
 
 # Data Types Cheatsheet
