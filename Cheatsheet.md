@@ -1,5 +1,4 @@
 ---
-title: PyTexas 2022 Choosing the Right Data Type Cheatsheet
 geometry: "margin=2cm"
 ---
 
