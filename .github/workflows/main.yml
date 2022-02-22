@@ -23,10 +23,14 @@ jobs:
         run: npx @marp-team/marp-cli@latest Slides.md -o PyTexasSlides.pdf
 
       - name: Export Cheatsheet HTML
-        run: pandoc -f markdown -t html -o PyTexasCheatsheet.html Cheatsheet.md
+        uses: docker://pandoc/core:2.9
+        with:
+          args: -f markdown -t html -o PyTexasCheatsheet.html Cheatsheet.md
 
       - name: Export Cheatsheet PDF
-        run: pandoc -f markdown -t pdf -o PyTexasCheatsheet.pdf Cheatsheet.md
+        uses: docker://pandoc/core:2.9
+        with:
+          args: pandoc -f markdown -t pdf -o PyTexasCheatsheet.pdf Cheatsheet.md
 
       - name: Print directory
         run: ls -a
