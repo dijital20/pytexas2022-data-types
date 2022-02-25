@@ -77,7 +77,19 @@ True
 - You either have a fixed number of values you are trying to group for convenience, or you hae an indeterminate amount of values that you don't want users to be able to change once defined.
 
 ```python
-# TODO: Add an example here.
+>> this, that = 1, 2
+>> DEFAULT_VALUES = ('foo', 'bar', 'baz')
+>> # Using a tuple as default values so you aren't passing a mutable...
+>> def this_function_does_things(things_to_iterate = DEFAULT_VALUES):
+..     results = []
+..     # This could be a list comprehension, but being easy here...
+..     for item in things_to_iterate:
+..         if str(item).startswith('b'):
+..             results.append(item)
+..     return results
+>> this_and_that = (this, that)  # Packaging values to use.
+>> this_and_that[0]
+1
 ```
 
 ---
@@ -95,7 +107,13 @@ True
 
 
 ```python
-# TODO: Add an example here.
+>> from collections import namedtuple
+>> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
+>> totals = InventoryItem('Saurian Brandy',5,32)
+>> totals
+InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
+>> totals.todo, totals[1]
+5, 5
 ```
 
 ---
@@ -113,7 +131,7 @@ True
 - You are going to be processing the contents of the collection linearly.
 
 ```python
-# TODO: Add an example here.
+
 ```
 
 ---
