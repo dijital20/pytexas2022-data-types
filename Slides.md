@@ -151,17 +151,17 @@ Use a `deque` in place of a `list`:
 Consider using a `namedtuple`  anywhere you'd use a `tuple` for packaging values, so that you can put names on the data inside.
 
 ```python
->> ('Saurian Brandy', 5, 32)
+>>> ('Saurian Brandy', 5, 32)
 ('Saurian Brandy', 5, 32)  # What are you?
 ```
 
 ```python
->> from collections import namedtuple
->> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
->> totals = InventoryItem('Saurian Brandy',5,32)
->> totals
+>>> from collections import namedtuple
+>>> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
+>>> totals = InventoryItem('Saurian Brandy',5,32)
+>>> totals
 InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
->> totals.todo, totals[1]
+>>> totals.todo, totals[1]
 5, 5
 ```
 
@@ -187,15 +187,15 @@ Use a `dict` when...
 - Where the number/type of the unique values are dynamic.
 
 ```python
->> enterprise_role_map = {
+>>> enterprise_role_map = {
     'Picard': 'Captain',
     'LaForge': 'Engineer',
     'Kirk': 'Captain',
     'McCoy': 'Medical',
 }
->> enterprise_role_map['Picard']
+>>> enterprise_role_map['Picard']
 'Captain'
->> 'Worf' in enterprise_role_map
+>>> 'Worf' in enterprise_role_map
 False
 ```
 
@@ -224,16 +224,16 @@ False
 Use a `defaultdict` in place of a dict if your values are the same data type, to ensure a default value if a key isn't defined. This can save you a few lines of code.
 
 ```python
->> non_dd = dict()
->> non_dd['foo'].append('bar')
+>>> non_dd = dict()
+>>> non_dd['foo'].append('bar')
 KeyError: 'foo' not defined.
 ```
 
 ```python
->> from collections import defaultdict
->> dd = defaultdict(default_factory=list)
->> dd['foo'].append('bar')
->> dd['foo']
+>>> from collections import defaultdict
+>>> dd = defaultdict(default_factory=list)
+>>> dd['foo'].append('bar')
+>>> dd['foo']
 ['bar']
 ```
 
@@ -244,19 +244,19 @@ KeyError: 'foo' not defined.
 Use a `class` when you want a rigid, deterministic structure for holding data (fields) and actions (methods) on that data.
 
 ```python
->> class WarpDrive(object):
-..     def __init__(self):
-..         self.factor = 0
-.. 
-..     def set_speed(factor: int) -> 'WarpDrive':
-..         print(f'Changing warp factor from {self.factor} to {factor}')
-..         self.factor = factor
-..         return self
-.. 
-..     def engage(self) -> None:
-..         print('Oh no, not installed until Tuesday')
-
->> WarpDrive().set_factor(6).engage()
+>>> class WarpDrive(object):
+...     def __init__(self):
+...         self.factor = 0
+... 
+...     def set_speed(factor: int) -> 'WarpDrive':
+...         print(f'Changing warp factor from {self.factor} to {factor}')
+...         self.factor = factor
+...         return self
+... 
+...     def engage(self) -> None:
+...         print('Oh no, not installed until Tuesday')
+...
+>>> WarpDrive().set_factor(6).engage()
 Changing warp factor from 0 to 6
 Oh no, not installed until Tuesday
 ```
@@ -282,17 +282,17 @@ Oh no, not installed until Tuesday
 Use a `dataclass` anywhere you would use a class, but don't want to write the boilerplate around a class (`__str__`, `__init__`, `__eq__`, etc).
 
 ```python
->> from dataclasses import dataclass
->> @dataclass
-.. class CrewPerson(object):
-..     name: str
-..     role: str
-..     service_length: int
-
->> p = CrewPerson('Picard', 'Captain', 35)
->> p
+>>> from dataclasses import dataclass
+>>> @dataclass
+... class CrewPerson(object):
+...     name: str
+...     role: str
+...     service_length: int
+...
+>>> p = CrewPerson('Picard', 'Captain', 35)
+>>> p
 CrewPerson(name='Picard', role='Captain', service_length=35)
->> p.name
+>>> p.name
 'Picard'
 ```
 
