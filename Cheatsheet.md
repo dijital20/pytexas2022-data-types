@@ -54,7 +54,7 @@ True
 >>> len(grocery_set)  # Find how many items are contained
 3
 >>> 'spam' in grocery_set  # Check for an item
-True
+TrueS
 >>> grocery_set.add('eggs')  # Add an item
 >>> grocery_set.extend({'cereal', 'cookies'})  # Add multiple items
 >>> grocery_set
@@ -189,7 +189,20 @@ deque(['message 6', 'message 7', 'message 8'], maxlen=5)
 - Your dictionary values are all a single type, and you want to ensure a default value is available for undefined keys.
 
 ```python
-# TODO: Add an example here.
+>>> from collections import defaultdict
+>>> foods = defaultdict(list)
+>>> foods
+defaultdict(<class 'list'>, {})
+>>> foods['breakfast'].append('pancakes')
+>>> for meal, food in (('breakfast', 'cereal'), ('lunch', 'grilled cheese'), ('dinner', 'steak')):
+...     foods[meal].append(food)
+...
+>>> foods
+defaultdict(<class 'list'>, {'breakfast': ['pancakes', 'cereal'], 'lunch': ['grilled cheese'], 'dinner': ['steak']})
+>>> foods['breakfast']
+['pancakes', 'cereal']
+>>> foods['dessert']
+[]
 ```
 
 ---
