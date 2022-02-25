@@ -21,16 +21,16 @@ geometry: "margin=2cm"
 ### Example
 
 ```python
->> grocery_list = ['milk', 'eggs', 'spam']  # Make a list.
->> len(grocery_list)  # Find how many items are contained
+>>> grocery_list = ['milk', 'eggs', 'spam']  # Make a list.
+>>> len(grocery_list)  # Find how many items are contained
 3
->> grocery_list[1]  # Get an item by index
+>>> grocery_list[1]  # Get an item by index
 'eggs'
->> 'spam' in grocery_list  # Check for  an item
+>>> 'spam' in grocery_list  # Check for  an item
 True
->> grocery_list.append('eggs')  # Append single items
->> grocery_list += ['cereal', 'cookies']  # Combine lists
->> grocery_list
+>>> grocery_list.append('eggs')  # Append single items
+>>> grocery_list += ['cereal', 'cookies']  # Combine lists
+>>> grocery_list
 ['milk', 'eggs', 'spam', 'eggs', 'cereal', 'cookies']
 ```
 
@@ -50,14 +50,14 @@ True
 ### Example
 
 ```python
->> grocery_set = {'milk', 'eggs', 'spam'}  # Create a set
->> len(grocery_set)  # Find how many items are contained
+>>> grocery_set = {'milk', 'eggs', 'spam'}  # Create a set
+>>> len(grocery_set)  # Find how many items are contained
 3
->> 'spam' in grocery_set  # Check for an item
+>>> 'spam' in grocery_set  # Check for an item
 True
->> grocery_set.add('eggs')  # Add an item
->> grocery_set.extend({'cereal', 'cookies'})  # Add multiple items
->> grocery_set
+>>> grocery_set.add('eggs')  # Add an item
+>>> grocery_set.extend({'cereal', 'cookies'})  # Add multiple items
+>>> grocery_set
 {'milk', 'eggs', 'spam', 'cereal', 'cookies'}
 # Note that 'eggs' only appears once...
 ```
@@ -77,18 +77,19 @@ True
 - You either have a fixed number of values you are trying to group for convenience, or you hae an indeterminate amount of values that you don't want users to be able to change once defined.
 
 ```python
->> this, that = 1, 2
->> DEFAULT_VALUES = ('foo', 'bar', 'baz')
->> # Using a tuple as default values so you aren't passing a mutable...
->> def this_function_does_things(things_to_iterate = DEFAULT_VALUES):
-..     results = []
-..     # This could be a list comprehension, but being easy here...
-..     for item in things_to_iterate:
-..         if str(item).startswith('b'):
-..             results.append(item)
-..     return results
->> this_and_that = (this, that)  # Packaging values to use.
->> this_and_that[0]
+>>> this, that = 1, 2
+>>> DEFAULT_VALUES = ('foo', 'bar', 'baz')
+>>> # Using a tuple as default values so you aren't passing a mutable...
+>>> def this_function_does_things(things_to_iterate = DEFAULT_VALUES):
+...     results = []
+...     # This could be a list comprehension, but being easy here...
+...     for item in things_to_iterate:
+...         if str(item).startswith('b'):
+...             results.append(item)
+...     return results
+...
+>>> this_and_that = (this, that)  # Packaging values to use.
+>>> this_and_that[0]
 1
 ```
 
@@ -107,12 +108,12 @@ True
 
 
 ```python
->> from collections import namedtuple
->> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
->> totals = InventoryItem('Saurian Brandy',5,32)
->> totals
+>>> from collections import namedtuple
+>>> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
+>>> totals = InventoryItem('Saurian Brandy',5,32)
+>>> totals
 InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
->> totals.todo, totals[1]
+>>> totals.todo, totals[1]
 5, 5
 ```
 
@@ -131,7 +132,28 @@ InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
 - You are going to be processing the contents of the collection linearly.
 
 ```python
-
+>>> from collections import deque
+>>> messages = deque(maxlen=5)
+>>> for i in range(10):
+...     messages.append(f'message {i}')
+...     print(messages)
+...
+deque(['message 0'], maxlen=5)
+deque(['message 0', 'message 1'], maxlen=5)
+deque(['message 0', 'message 1', 'message 2'], maxlen=5)
+deque(['message 0', 'message 1', 'message 2', 'message 3'], maxlen=5)
+deque(['message 0', 'message 1', 'message 2', 'message 3', 'message 4'], maxlen=5)
+deque(['message 1', 'message 2', 'message 3', 'message 4', 'message 5'], maxlen=5)
+deque(['message 2', 'message 3', 'message 4', 'message 5', 'message 6'], maxlen=5)
+deque(['message 3', 'message 4', 'message 5', 'message 6', 'message 7'], maxlen=5)
+deque(['message 4', 'message 5', 'message 6', 'message 7', 'message 8'], maxlen=5)
+deque(['message 5', 'message 6', 'message 7', 'message 8', 'message 9'], maxlen=5)
+>>> messages.pop()
+'message 9'
+>>> messages.popleft()
+'message 5'
+>>> messages
+deque(['message 6', 'message 7', 'message 8'], maxlen=5)
 ```
 
 ---
