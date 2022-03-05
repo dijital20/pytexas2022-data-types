@@ -235,5 +235,12 @@ defaultdict(<class 'list'>, {'breakfast': ['pancakes', 'cereal'], 'lunch': ['gri
 - You want to define a `class` that contains values, and you don't want to write a bunch of boilerplate magic methods.
 
 ```python
-# TODO: Add an example here.
+>>> from dataclasses import dataclass
+>>> @dataclass
+... class CrewMember(object):
+...     name: str
+...     rank: str
+...
+>>> CrewMember('Jean Luc Picard', 'Captain')
+CrewMember(name='Jean Luc Picard', rank='Captain')
 ```
