@@ -33,9 +33,9 @@ _paginate: false
 ## Where did this come from?
 
 * *"When should I use a list vs a tuple?"*
-* *"Why does everything have to be a list/dict?"*
-* The data structures we choose imply how the data should be used.
-* We're not going to cover "Elemental" data types (`int`, `str`, `float`, `bool`, `None`).
+* *"Why does everything have to be a list of dicts???"*
+* The properties of the data structures we choose imply how the data should be interpreted, processed, and extended.
+* We're not going to cover "Atomic" data types (`int`, `str`, `float`, `bool`, `None`).
 
 <!-- 
     Speaker Notes:
@@ -53,6 +53,26 @@ _paginate: false
     We're not going to focus on the elemental data types, like int, float, str, bool, and None. I call those elemental data
     types because you can't really break them down into anything simpler (without transmuting them into each other) and
     the data types we are going to talk about are really just ways of arranging values in those types.
+ -->
+
+ ---
+
+## My Guiding Design Principle
+
+1. Make it **obvious**.
+2. If you can't make it obvious, make it **familiar**.
+3. If you can't make it familiar, make it **well-documented**.
+
+<!-- 
+    Speaker Notes:
+
+    The best user experiences are with things that are obvious. No one has to tell you how to use it, you just know.
+
+    In the absence of obvious, familiar is next best. Borrowing understanding from something else makes it easier to 
+    gain a cognitive foothold.
+
+    In the absence of familiar, documentation is your last option. Documentation is useful but daunting, so if you can 
+    make it familiar or obvious, you are far better off.
  -->
 
 <!-- ---
@@ -91,26 +111,27 @@ _paginate: false
 
 ## `list`, `set`, `tuple` - 3 very different bags
 
-|Name       |Mutable    |Unique     |Ordered    |Useful methods                                 |
-|:-:        |:-:        |:-:        |:-:        |:-:                                            |
-|`list`     |&#10004;   |&#10060;   |&#10004;   |`push`, `pop`, `insert`, `append`, `extend`    |
-|`set`      |&#10004;   |&#10004;   |&#10060;   |`union`, `intersection`, `difference`, `add`   |
-|`tuple`    |&#10060;   |&#10060;   |&#10004;   |*tumbleweeds...*                               |
+|Name       |Mutable    |Ordered    |Useful methods                                 |
+|:-:        |:-:        |:-:        |:-:                                            |
+|`list`     |&#10004;   |&#10004;   |`push`, `pop`, `insert`, `append`, `extend`    |
+|`set`      |&#10004;   |&#10060;   |`union`, `intersection`, `difference`, `add`   |
+|`tuple`    |&#10060;   |&#10004;   |*tumbleweeds...*                               |
 
 <!-- 
     Speaker Notes:
     We usually talk about lists, sets, and tuples collectively (see what I did there?); but they are very different.
 
-    Lists and sets are your standard mutable mapping. They are good at holding an indeterminate amount of items, when you 
-    need to access the items from more than one place. Tuples, on the other hand, are locked when defined (something fun 
-    happens when you put a mutable type inside an immutable type... remember that Python is "by reference") and aren't 
-    extendable... which makes them good for packaging, but bad for being a drop zone for new members.
+    Lists and sets are your standard mutable collections. They are good at holding an indeterminate amount of items, 
+    when you need to access the items from more than one place. Tuples, on the other hand, are locked when defined 
+    (something fun happens when you put a mutable type inside an immutable type... remember that Python is 
+    "by reference") and aren't extendable... which makes them good for packaging, but bad for being a drop zone for new 
+    members.
 
     Note the inverse relationship between requiring unique data values and ordered. 
-    - Sets are containers where value (uniqueness) matters, not position. Because of this, all of your elements have to be 
-      hashable (immutable).
-    - Lists are containers where position matters more than the value itself. You can put any kind of data into a list,
-      you can mix and match... the value matters less than its position within the list.
+    - Sets are containers where value (uniqueness) matters for locating a value, not position. Because of this, all of 
+      your elements have to be hashable (immutable).
+    - Lists are containers where position matters for locating a value, more than the value itself. You can put any kind 
+      of data into a list, you can mix and match... the value matters less than its position within the list.
     - Tuples are like lists, except that they can't be changed or extended without destroying the old one and making the 
       new one.
  -->
@@ -148,7 +169,7 @@ Use a `deque` in place of a `list`:
 
 ## `namedtuple` - Name your data
 
-Consider using a `namedtuple`  anywhere you'd use a `tuple` for packaging values, so that you can put names on the data inside.
+Consider using a `namedtuple` anywhere you'd use a `tuple` for packaging values, so that you can put names on the data inside.
 
 ```python
 >>> ('Saurian Brandy', 5, 32)
@@ -158,7 +179,7 @@ Consider using a `namedtuple`  anywhere you'd use a `tuple` for packaging values
 ```python
 >>> from collections import namedtuple
 >>> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
->>> totals = InventoryItem('Saurian Brandy',5,32)
+>>> totals = InventoryItem('Saurian Brandy', 5, 32)
 >>> totals
 InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
 >>> totals.todo, totals[1]
@@ -241,7 +262,7 @@ KeyError: 'foo' not defined.
 
 ## Classes
 
-Use a `class` when you want a rigid, deterministic structure for holding data (fields) and actions (methods) on that data.
+Use a `class` over a `dict` when you want a rigid, deterministic structure for holding data (fields) and/or actions (methods) on that data.
 
 ```python
 >>> class WarpDrive(object):
