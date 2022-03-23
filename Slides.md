@@ -204,8 +204,8 @@ InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
 ## Mapping - `dict`
 
 Use a `dict` when...
-- You need to relate some unique value to some other value.
-- Where the number/type of the unique values are dynamic.
+- You need to relate some unique value (key) to some other value (value).
+- Where the number/type of the keys are dynamic.
 
 ```python
 >>> enterprise_role_map = {
@@ -246,8 +246,12 @@ Use a `defaultdict` in place of a dict if your values are the same data type, to
 
 ```python
 >>> non_dd = dict()
+>>> if 'foo' not in non_dd:
+...     non_dd['foo'] = []
+... 
 >>> non_dd['foo'].append('bar')
-KeyError: 'foo' not defined.
+>>> non_dd['foo']
+['bar']
 ```
 
 ```python
