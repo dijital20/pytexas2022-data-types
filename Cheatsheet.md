@@ -7,6 +7,8 @@ geometry: "margin=2cm"
 
 ## `list`
 
+Python Official Docs: [Standard Types > list](https://docs.python.org/3/library/stdtypes.html#lists)
+
 ### Essential facts
 
 - Mutable
@@ -38,6 +40,8 @@ True
 
 ## `set`
 
+Python Official Docs: [Standard Types > set](https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset)
+
 ### Essential facts
 - Mutable
 - Unordered
@@ -65,6 +69,8 @@ TrueS
 ---
 
 ## `tuple`
+
+Python Official Docs: [Standard Types > tuple](https://docs.python.org/3/library/stdtypes.html#tuples)
 
 ### Essential Facts
 
@@ -95,7 +101,9 @@ TrueS
 
 ---
 
-## `namedtuple`
+## `collections.namedtuple`
+
+Python Official Docs: [collections > namedtuple](https://docs.python.org/3/library/collections.html#namedtuple-factory-function-for-tuples-with-named-fields)
 
 ### Essential Facts
 
@@ -119,7 +127,9 @@ InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
 
 ---
 
-## `deque`
+## `collections.deque`
+
+Python Official Docs: [collections > deque](https://docs.python.org/3/library/collections.html#deque-objects)
 
 ### Essential Facts
 
@@ -160,6 +170,8 @@ deque(['message 6', 'message 7', 'message 8'], maxlen=5)
 
 ## `dict`
 
+Python Official Docs: [Standard Types > dict](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict)
+
 ### Essential Facts
 
 - Mapping of an immutable piece of data (the key) to a mutable or immutable piece of data (the value).
@@ -172,12 +184,23 @@ deque(['message 6', 'message 7', 'message 8'], maxlen=5)
 - The number and contents of the keys are indeterminate.
 
 ```python
-# TODO: Add an example here.
+>>> enterprise_role_map = {
+    'Picard': 'Captain',
+    'LaForge': 'Engineer',
+    'Kirk': 'Captain',
+    'McCoy': 'Medical',
+}
+>>> enterprise_role_map['Picard']
+'Captain'
+>>> 'Worf' in enterprise_role_map
+False
 ```
 
 ---
 
-## `defaultdict`
+## `collections.defaultdict`
+
+Python Official Docs: [collections > defaultdict](https://docs.python.org/3/library/collections.html#defaultdict-objects)
 
 ### Essential Facts
 
@@ -209,6 +232,8 @@ defaultdict(<class 'list'>, {'breakfast': ['pancakes', 'cereal'], 'lunch': ['gri
 
 ## `class`
 
+Python Official Docs: [Object Model](https://docs.python.org/3/reference/datamodel.html#objects) and [Class Definitions](https://docs.python.org/3/reference/compound_stmts.html#class)
+
 ### Essential Facts
 
 ### Use when
@@ -217,12 +242,28 @@ defaultdict(<class 'list'>, {'breakfast': ['pancakes', 'cereal'], 'lunch': ['gri
 - You want to add "actions" (methods) in addition to the state data (fields).
 
 ```python
-# TODO: Add an example here.
+>>> class WarpDrive(object):
+...     def __init__(self):
+...         self.factor = 0
+... 
+...     def set_speed(factor: int) -> 'WarpDrive':
+...         print(f'Changing warp factor from {self.factor} to {factor}')
+...         self.factor = factor
+...         return self  # This is useful, and allows you to chain calls.
+... 
+...     def engage(self) -> None:
+...         print('Oh no, not installed until Tuesday')
+... 
+>>> WarpDrive().set_factor(6).engage()
+Changing warp factor from 0 to 6
+Oh no, not installed until Tuesday
 ```
 
 ---
 
-## `dataclass`
+## `dataclasses.dataclass`
+
+Python Official Docs: [dataclasses](https://docs.python.org/3/library/dataclasses.html)
 
 ### Essential Facts
 
