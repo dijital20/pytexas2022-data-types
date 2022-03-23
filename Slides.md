@@ -34,8 +34,9 @@ _paginate: false
 
 * *"When should I use a list vs a tuple?"*
 * *"Why does everything have to be a list of dicts???"*
-* The properties of the data structures we choose imply how the data should be interpreted, processed, and extended.
 * We're not going to cover "Atomic" data types (`int`, `str`, `float`, `bool`, `None`).
+* Think of your code as a user interface, and be kind to its users.
+* The properties of the data structures we choose imply how the data should be interpreted, processed, and extended.
 
 <!-- 
     Speaker Notes:
@@ -57,11 +58,11 @@ _paginate: false
 
  ---
 
-## My Guiding Design Principle
+## My Guiding Design Principle for Good User Experiences
 
-1. Make it **obvious**.
-2. If you can't make it obvious, make it **familiar**.
-3. If you can't make it familiar, make it **well-documented**.
+* *"Make it **obvious**."*
+* *"If you can't make it obvious, make it **familiar**."*
+* *"If you can't make it obvious or familiar, then at least make it **well-documented**!"*
 
 <!-- 
     Speaker Notes:
@@ -153,7 +154,7 @@ Use a `list` when order matters and you don't know how many items you have.
 
 ---
 
-## `deque` - Popping and Locking and Pushing
+## `collections.deque` - Popping and Locking and Pushing
 
 Use a `deque` in place of a `list`:
 
@@ -167,7 +168,7 @@ Use a `deque` in place of a `list`:
 
 ---
 
-## `namedtuple` - Name your data
+## `collections.namedtuple` - Name your data
 
 Consider using a `namedtuple` anywhere you'd use a `tuple` for packaging values, so that you can put names on the data inside.
 
@@ -240,7 +241,7 @@ False
 
 ---
 
-## `defaultdict` - Ensuring default data/type
+## `collections.defaultdict` - Ensuring default values
 
 Use a `defaultdict` in place of a dict if your values are the same data type, to ensure a default value if a key isn't defined. This can save you a few lines of code.
 
@@ -276,11 +277,11 @@ Use a `class` over a `dict` when you want a rigid, deterministic structure for h
 ...     def set_speed(factor: int) -> 'WarpDrive':
 ...         print(f'Changing warp factor from {self.factor} to {factor}')
 ...         self.factor = factor
-...         return self
+...         return self  # This is useful, and allows you to chain calls.
 ... 
 ...     def engage(self) -> None:
 ...         print('Oh no, not installed until Tuesday')
-...
+... 
 >>> WarpDrive().set_factor(6).engage()
 Changing warp factor from 0 to 6
 Oh no, not installed until Tuesday
@@ -317,8 +318,6 @@ Use a `dataclass` anywhere you would use a class, but don't want to write the bo
 >>> p = CrewPerson('Picard', 'Captain', 35)
 >>> p
 CrewPerson(name='Picard', role='Captain', service_length=35)
->>> p.name
-'Picard'
 ```
 
 <!-- 
@@ -345,5 +344,6 @@ CrewPerson(name='Picard', role='Captain', service_length=35)
 
 Questions, comments, remarks, jokes, limericks and dad jokes
 [GitHub: @Dijital20](https://github.com/dijital20)
+[Twitter: @diji](https://twitter.com/diji)
 
 <!-- _class: invert -->
