@@ -179,10 +179,10 @@ Consider using a `namedtuple` anywhere you'd use a `tuple` for packaging values,
 ```python
 >>> from collections import namedtuple
 >>> TaskTotals = namedtuple('InventoryItem', 'item,have,need')
->>> totals = InventoryItem('Saurian Brandy', 5, 32)
->>> totals
+>>> item = InventoryItem('Saurian Brandy', 5, 32)
+>>> item
 InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
->>> totals.todo, totals[1]
+>>> item.have, item[1]  # Index or attribute... both work!
 5, 5
 ```
 
@@ -192,7 +192,7 @@ InventoryItem(item='Saurian Brandy', have=5, need=32)  # Much more clear
     signifies. This can make it harder for your users, or force them to rely on docstrings (please, please always do 
     these, and do them well) and documentation.
 
-    Namedtuples are awesome in that they give you all of the same functionality as a tuple, but with the addition names, 
+    Namedtuples are useful in that they give you all of the same functionality as a tuple, but with the addition names, 
     which are printed when the value is printed, and you can use to access the data rather than index.
 
     Namedtuples cannot easily contain instance methods and properties... a class is better for those, but if you don't 
