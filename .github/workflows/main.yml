@@ -17,10 +17,10 @@ jobs:
         run: ls -a
       
       - name: Export Slides HTML
-        run: npx @marp-team/marp-cli@latest Slides.md -o PyTexasSlides.html
+        run: npx @marp-team/marp-cli@latest Slides.md -o PyTexasSlides.html --html true
 
       - name: Export Slides PDF
-        run: npx @marp-team/marp-cli@latest Slides.md -o PyTexasSlides.pdf
+        run: npx @marp-team/marp-cli@latest Slides.md -o PyTexasSlides.pdf --html true
 
       - name: Export Cheatsheet HTML
         uses: docker://pandoc/latex:latest
